@@ -1,13 +1,17 @@
-var express = require('express');
+const express = require('express');
+const app = express();
+const db = require("./models");
+const apiRoutes = require("./routes/index");
 
-var app = express();
+const PORT = process.env.PORT || 3000;
 
-var PORT = 3000;
+app.use(express.urlencoded({ extended: true}));
+app.use(express.json());
 
-app.get('/', function(req, res) {
-    res.status(200).send('Hello world');
-});
+app.use("/api", apiRoutes);
 
-app.listen(PORT, function() {
-    console.log('Server is running on PORT:',PORT);
+db.sequelize.sync().then(() => {
+  app.listen(PORT, () => {
+    console.log(`listening on: http://localhost:${PORT}`);
+  });
 });
