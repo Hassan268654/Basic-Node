@@ -1,13 +1,15 @@
 const express = require('express');
 const studentController = require('../../controllers/studentController')
+const studentValidators = require('../../validations/studentCreate')
 const path = require('path');
 const router = express.Router();
 const studentRoutes = express.Router();
-var fs = require('fs');
-var mime = require('mime');
+
 
 studentRoutes.get('/',studentController.index);
-studentRoutes.post('/create',studentController.store);
-
+studentRoutes.post('/create',[studentValidators.studentCreate(), studentValidators.validate],studentController.store);
+studentRoutes.get('/:id',studentController.show);
+studentRoutes.put('/update',studentController.update);
+studentRoutes.delete('/delete/:id',studentController.destroy);
 
 module.exports = studentRoutes;
