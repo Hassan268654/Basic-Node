@@ -20,9 +20,10 @@ module.exports = (sequelize, DataTypes) => {
     media: DataTypes.STRING,
     createdAt: DataTypes.DATE,
     updatedAt: DataTypes.DATE,
-    deleted_at: DataTypes.DATE
+    deletedAt: DataTypes.DATE
   }, {
     sequelize,
+    paranoid: true,
     modelName: 'Student',
   });
   return Student;
